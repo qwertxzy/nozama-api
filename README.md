@@ -14,15 +14,15 @@ Furthermore requests may include a `<session_id>` field. This implies that it ca
 
 ___
 
-##Login / getting a session id
+## Login / getting a session id
 
 **Definition**
 
 `POST /login`
 
 **Arguments**
--`"username":string` the username used to globally identify a user
--`"password":string` the password of the user in the form of a salted hash with their username
+- `"username":string` the username used to globally identify a user
+- `"password":string` the password of the user in the form of a salted hash with their username
 
 **Response**
 
@@ -36,7 +36,7 @@ ___
 
 ```
 
-##Get item details
+## Get item details
 
 **Definition**
 
@@ -83,7 +83,7 @@ ___
 
 **Note: another method for batch queries should be created, however I'm still working out the details on that**
 
-##Get vendor details
+## Get vendor details
 
 **Definition**
 
@@ -107,7 +107,7 @@ ___
 }
 ```
 
-##Get User details
+## Get User details
 
 **Definition**
 
@@ -141,7 +141,7 @@ ___
 }
 ```
 
-##See details of a past order
+## See details of a past order
 
 **Definition**
 
@@ -171,7 +171,7 @@ ___
 }
 ```
 
-##Searching for items by name/tag
+## Searching for items by name/tag
 
 **Defitinion**
 
@@ -180,7 +180,7 @@ The search string searches in product names for now.
 
 **Response**
 
--`200 OK` in every case
+- `200 OK` in every case
 If no items were found, an empty list is provided
 
 ```json
