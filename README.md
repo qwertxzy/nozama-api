@@ -35,10 +35,8 @@ ___
 {
   "session_id": "12345abc"
 }
-
-Note this is the only alphanumeric ID
-
 ```
+Note this is the only alphanumeric ID
 
 ## Registering a new account
 
@@ -96,7 +94,7 @@ None
 {
   "name": "a product name",
   "description": "a product description",
-  "vendor_id": 321
+  "vendor_id": ,
   "pictures": [
     "link/to/pic2",
     "link/to/pic1",
