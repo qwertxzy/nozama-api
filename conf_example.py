@@ -1,4 +1,12 @@
-user='database username'
-passwd='that users password'
-database='the schema name'
-host='hostname'
+import mysql.connector
+
+user=''
+passwd=''
+database=''
+host=''
+
+connector = mysql.connector.connect(
+    user=user,
+    database=database,
+    passwd=passwd,
+    host=host)
