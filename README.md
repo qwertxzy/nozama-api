@@ -94,7 +94,8 @@ None
 {
   "name": "a product name",
   "description": "a product description",
-  "vendor_id": ,
+  "vendor": 2,
+  "manufacturer": 1
   "pictures": [
     "link/to/pic2",
     "link/to/pic1",
