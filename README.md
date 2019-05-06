@@ -1,17 +1,6 @@
 # API Endpoint overview
 This document serves as a short overview over the api and its' responses.
 
- ~~All responses will have the form~~
-```json
-{
-    "data": "Mixed type holding the content of the response",
-    "message": "Description of what happened"
-}
-```
-
-~~Following definitions will only show contents of the `data` field.~~
-I think most cases can be handled with just http status codes, so that's the approach for now. Every example response is what you're getting.
-
 Furthermore requests may include a `<session_id>` field. This implies that it can only be called after a successful login.
 
 ___
@@ -23,8 +12,8 @@ ___
 `POST /login`
 
 **Arguments**
-- `"username":string` the username used to globally identify a user
-- `"password":string` the password of the user in the form of a salted hash with their username
+- `"email":string` the email address used to globally identify a user
+- `"password":string` the user's password
 
 **Response**
 
@@ -45,19 +34,15 @@ Note this is the only alphanumeric ID
 `POST /register`
 
 **Arguments**
-- `"username":string` the desired username
+- `"email":string` the user's e-mail adress (**has to be globally unique**)
+- `"username":string` the desired username used for displaying
 - `"password":string` a hash of a nice and strong password
+- `"salt":string` that hash's salt
 
 **Response**
 
 - `200 OK` on success
-- `409 Conflict` if the username was taken already
-
-```json
-{
-
-}
-```
+- `409 Conflict` if the email is already being used
 
 ## Purchasing the contents of your current cart
 
@@ -95,7 +80,7 @@ None
   "name": "a product name",
   "description": "a product description",
   "vendor": 2,
-  "manufacturer": 1
+  "manufacturer": 1,
   "pictures": [
     "link/to/pic2",
     "link/to/pic1",
