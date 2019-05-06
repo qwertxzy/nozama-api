@@ -11,17 +11,16 @@ def handle():
     #parse the request form data into variables
     username = request.form['username']
     password = request.form['password']
-    salt = request.form['salt']
     email = request.form['email']
 
     #call a stored procedure to add a user to the db
-    result = cursor.callproc('add_user', args=[username, password, email, salt, 255])
+    result = cursor.callproc('add_user', args=[username, password, email, 255])
 
-    #the 5th entry of result is the 5th parameter, containing the out status
-    if(result[4] == 0):
+    #the 4th entry of result is the 4th parameter, containing the out status
+    if(result[3] == 0):
         #we have a 0 -> success!
         return '', status.HTTP_200_OK
-    elif(result[4] == 1):
+    elif(result[3] == 1):
         #we have a 1 -> email was not unique
         return '', status.HTTP_409_CONFLICT
     else:

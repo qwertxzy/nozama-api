@@ -37,7 +37,6 @@ Note this is the only alphanumeric ID
 - `"email":string` the user's e-mail adress (**has to be globally unique**)
 - `"username":string` the desired username used for displaying
 - `"password":string` a hash of a nice and strong password
-- `"salt":string` that hash's salt
 
 **Response**
 
