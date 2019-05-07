@@ -117,7 +117,7 @@ Note this is the only alphanumeric ID
 }
 ```
 
-## Deletign an item from your vendor page
+## Deleting an item from your vendor page
 
 **Definition**
 

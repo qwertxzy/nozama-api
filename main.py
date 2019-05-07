@@ -4,6 +4,7 @@ from flask import Flask
 from endpoints.tags import tags
 from endpoints.categories import categories
 from endpoints.item import item
+from endpoints.vendor import vendor
 from endpoints.register import register
 from endpoints.login import login
 
@@ -13,6 +14,7 @@ app = Flask(__name__)
 app.register_blueprint(tags)
 app.register_blueprint(categories)
 app.register_blueprint(item)
+app.register_blueprint(vendor)
 app.register_blueprint(register)
 app.register_blueprint(login)
 
