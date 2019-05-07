@@ -34,7 +34,7 @@ Note this is the only alphanumeric ID
 `POST /register`
 
 **Arguments**
-- `"email":string` the user's e-mail adress (**has to be globally unique**)
+- `"email":string` the user's e-mail address (**has to be globally unique**)
 - `"username":string` the desired username used for displaying
 - `"password":string` a hash of a nice and strong password
 
@@ -43,23 +43,123 @@ Note this is the only alphanumeric ID
 - `200 OK` on success
 - `409 Conflict` if the email is already being used
 
+## Changing your password
+
+**Definition**
+
+`POST /change_password/<session_id>`
+
+**Arguments**
+- `"email":string` the user's email address
+- `"password":string` the new password to be used
+
+**Response**
+
+- `200 OK` on success
+- `401 Unauthorized` if the session id is invalid
+
 ## Purchasing the contents of your current cart
 
 **Definition**
 
 `POST /purchase/<session_id>`
 
-**Arguments**
-None
 
 **Response**
 
 - `200 OK` on success
-- `401 Unauthorized` if the session_id is not valid
+- `401 Unauthorized` if the session_id is invalid
 
 ```json
 {
   "order_id": 123123123
+}
+```
+
+## Add a product to your vendor page
+
+**Definition**
+
+`POST /add_item/<session_id>`
+
+
+**Request Body**
+```json
+{
+  "name": "a product name",
+  "description": "a product description",
+  "vendor": 2,
+  "manufacturer": 1,
+  "price": 420,
+  "category": 111,
+  "tags": [
+    1,
+    2,
+    3
+  ],
+  "details": [
+    "whatever",
+    "goes",
+    "into",
+    "here"
+  ]
+}
+```
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the request was not valid
+
+```json
+{
+  "item_id": 123
+}
+```
+
+## Deletign an item from your vendor page
+
+**Definition**
+
+`POST /remove_item/<session_id>/<item_id>`
+
+**Response**
+
+- `200 OK` on success
+- `401 Unauthorized` if the session_id is invalid or if the item does not belong to the vendor
+- `404 Not Found` if the item_id could not be found
+
+## Adding an image to an item
+
+**Definition**
+
+`POST /add_item_image/<session_id/<image_id>`
+
+`enctype=multipart/form-data`
+
+**Arguments**
+
+- `"image":file` the image to be added
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the file was invalid
+
+## Adding a tag
+
+**Definition**
+
+`POST /add_tag/<tag_name>`
+
+**Response**
+
+- `200 OK` on success
+- `401 Bad Request` if the tag name is already being used
+
+```json
+{
+  "tag_id": 9
 }
 ```
 
@@ -114,10 +214,16 @@ None
 - `200 OK`
 
 ```json
-{
-  "1": "tag1",
-  "2": "tag2"
-}
+[
+  {
+    "tag_name": "abc",
+    "tag_id": 1
+  },
+  {
+    "tag_name": "def",
+    "tag_id": 2
+  }
+]
 ```
 
 ## Get categories
@@ -131,10 +237,16 @@ None
 - `200 OK`
 
 ```json
-{
-  "1": "cat1",
-  "2": "cat2"
-}
+[
+  {
+    "category_name": "abc",
+    "category_id": 1
+  },
+  {
+    "category_name": "def",
+    "category_id": 2
+  }
+]
 ```
 
 ## Get vendor details
