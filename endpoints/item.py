@@ -12,14 +12,12 @@ def handle(item_id):
 
     cursor = conf.connector.cursor()
 
-    #call a stored procedure to get information for an item
+    # call a stored procedure to get information for an item
     cursor.callproc('get_item', args=[item_id])
 
-
-    #if there are no returned rows, return a 404
+    # if there are no returned rows, return a 404
     if cursor.rowcount == 0:
         return '{}', status.HTTP_404_NOT_FOUND
-
 
     # TODO: find a nicer way to do this here and the other two times down
     # Basically stored results is an iterator over something(?) and we're only interested
@@ -54,6 +52,5 @@ def handle(item_id):
     for line in result.fetchall():
         answer['tags'].append(line[0])
 
-
-    #TODO: add details(?) to the response
+    # TODO: add details(?) to the response
     return json.dumps(answer), status.HTTP_200_OK

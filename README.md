@@ -22,10 +22,10 @@ ___
 
 ```json
 {
-  "session_id": "12345abc"
+  "session_id": "595743e4fc699393"
 }
 ```
-Note this is the only alphanumeric ID
+Note this is the only alphanumeric ID at 16 characters length
 
 ## Registering a new account
 
@@ -288,6 +288,7 @@ Note this is the only alphanumeric ID
 {
   "name": "username",
   "display_name": "A fancy display name.",
+  "belongs_to_vendor": 1,
   "wallet": 3.1415,
   "cart": [
     {
