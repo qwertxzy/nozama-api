@@ -163,6 +163,18 @@ Note this is the only alphanumeric ID at 16 characters length
 }
 ```
 
+## Putting an item into your cart
+
+**Definition**
+
+`POST /grab/<session_id>/<item_id>`
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the item could not be found
+- `401 Unauthorized` if the session id is invalid
+
 ## Get item details
 
 **Definition**
