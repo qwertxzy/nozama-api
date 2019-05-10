@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_api import status
 import json
+import mysql.connector
 import conf
 
 profile = Blueprint('profile', __name__)
@@ -8,9 +9,16 @@ profile = Blueprint('profile', __name__)
 
 @profile.route('/profile/<session_id>')
 def handle(session_id):
+    connector = mysql.connector.connect(
+        user=conf.user,
+        database=conf.database,
+        passwd=conf.passwd,
+        host=conf.host,
+        port=conf.port)
+
     answer = {}
 
-    cursor = conf.connector.cursor()
+    cursor = connector.cursor()
 
     # call a stored procedure to get information about a vendor with a given session_id
     status_code = cursor.callproc('get_profile', args=[session_id, 0])
@@ -51,12 +59,16 @@ def handle(session_id):
         for line in result.fetchall():
             answer['order_history'].append(line[0])
 
+        connector.close()
+
         return json.dumps(answer), status.HTTP_200_OK
 
     elif (status_code[1] == 1):
         # couldn't correlate a user_id to the token_code
+        connector.close()
         return '', status.HTTP_401_UNAUTHORIZED
 
     else:
         # no clue what happened, probably the server's fault
+        connector.close()
         return '', status.HTTP_500_INTERNAL_SERVER_ERROR

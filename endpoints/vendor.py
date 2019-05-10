@@ -1,20 +1,29 @@
 from flask import Blueprint
 from flask_api import status
 import json
+import mysql.connector
 import conf
 
 vendor = Blueprint('vendor', __name__)
 
+
 @vendor.route('/vendor/<int:vendor_id>')
 def handle(vendor_id):
+    connector = mysql.connector.connect(
+        user=conf.user,
+        database=conf.database,
+        passwd=conf.passwd,
+        host=conf.host,
+        port=conf.port)
+
     answer = {}
 
-    cursor = conf.connector.cursor()
+    cursor = connector.cursor()
 
-    #call a stored procedure to get information about a vendor
+    # call a stored procedure to get information about a vendor
     cursor.callproc('get_vendor', args=[vendor_id])
 
-    #if there are no returned rows, return a 404
+    # if there are no returned rows, return a 404
     if cursor.rowcount == 0:
         return '{}', status.HTTP_404_NOT_FOUND
 
@@ -27,7 +36,7 @@ def handle(vendor_id):
         answer['description'] = line[1]
         answer['image'] = line[2]
 
-    #call another stored procedure to get the vendor's items
+    # call another stored procedure to get the vendor's items
     cursor.callproc('get_vendor_items', args=[vendor_id])
 
     answer['items'] = []
@@ -38,5 +47,6 @@ def handle(vendor_id):
     for line in result.fetchall():
         answer['items'].append(line[0])
 
+    connector.close()
 
     return json.dumps(answer), status.HTTP_200_OK

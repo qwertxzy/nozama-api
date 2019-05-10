@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_api import status
 import json
+import mysql.connector
 import conf
 
 item = Blueprint('item', __name__)
@@ -8,9 +9,16 @@ item = Blueprint('item', __name__)
 
 @item.route('/item/<int:item_id>')
 def handle(item_id):
+    connector = mysql.connector.connect(
+        user=conf.user,
+        database=conf.database,
+        passwd=conf.passwd,
+        host=conf.host,
+        port=conf.port)
+
     answer = {}
 
-    cursor = conf.connector.cursor()
+    cursor = connector.cursor()
 
     # call a stored procedure to get information for an item
     cursor.callproc('get_item', args=[item_id])
@@ -53,4 +61,6 @@ def handle(item_id):
         answer['tags'].append(line[0])
 
     # TODO: add details(?) to the response
+    connector.close()
+
     return json.dumps(answer), status.HTTP_200_OK

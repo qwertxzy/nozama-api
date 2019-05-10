@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from flask_api import status
+import mysql.connector
 import conf
 
 register = Blueprint('register', __name__)
@@ -7,7 +8,14 @@ register = Blueprint('register', __name__)
 
 @register.route('/register', methods=['POST'])
 def handle():
-    cursor = conf.connector.cursor()
+    connector = mysql.connector.connect(
+        user=conf.user,
+        database=conf.database,
+        passwd=conf.passwd,
+        host=conf.host,
+        port=conf.port)
+
+    cursor = connector.cursor()
 
     # parse the request form data into variables
     username = request.form['username']
@@ -16,6 +24,8 @@ def handle():
 
     # call a stored procedure to add a user to the db
     result = cursor.callproc('add_user', args=[username, password, email, 255])
+
+    connector.close()
 
     # the 4th entry of result is the 4th parameter, containing the out status
     if (result[3] == 0):
