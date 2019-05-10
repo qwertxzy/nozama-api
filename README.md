@@ -121,7 +121,7 @@ Note this is the only alphanumeric ID at 16 characters length
 
 **Definition**
 
-`POST /remove_item/<session_id>/<item_id>`
+`POST /delete_item/<session_id>/<item_id>`
 
 **Response**
 
@@ -167,13 +167,30 @@ Note this is the only alphanumeric ID at 16 characters length
 
 **Definition**
 
-`POST /grab/<session_id>/<item_id>`
+`POST /grab_item/<session_id>/<item_id>/<amount>`
 
 **Response**
 
 - `200 OK` on success
 - `404 Not Found` if the item could not be found
-- `401 Unauthorized` if the session id is invalid
+- `401 Unauthorized` if the session id could not be found
+- `400 Bad Request` if the session_id is too long
+- `403 Forbidden` if the amount is < 0
+
+
+## Removing an item from your cart
+
+**Definition**
+
+`POST /remove_item/<session_id>/<item_id>`
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the item could not be found
+- `401 Unauthorized` if the session id could not be found
+- `400 Bad Request` if the session_id is too long
+
 
 ## Get item details
 
@@ -214,6 +231,27 @@ Note this is the only alphanumeric ID at 16 characters length
 ```
 
 **Note: another method for batch queries should be created, however I'm still working out the details on that**
+
+## Get n  random items
+
+**Definition**
+
+`GET /random/<amount>`
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the amount is < 1
+
+```json
+[
+  1,
+  2,
+  3,
+  4,
+  69
+]
+```
 
 ## Get tags
 
@@ -294,7 +332,8 @@ Note this is the only alphanumeric ID at 16 characters length
 **Response**
 
 - `200 OK` on success
-- `401 Unauthorized` if the session_id is not valid
+- `401 Unauthorized` if the session_id could not be found
+- `400 Bad Request` if the session_id is too long
 
 ```json
 {

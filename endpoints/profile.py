@@ -9,6 +9,10 @@ profile = Blueprint('profile', __name__)
 
 @profile.route('/profile/<session_id>')
 def handle(session_id):
+    # session_ids are 16 characters long
+    if (len(session_id) > 16):
+        return '', status.HTTP_400_BAD_REQUEST
+
     connector = mysql.connector.connect(
         user=conf.user,
         database=conf.database,

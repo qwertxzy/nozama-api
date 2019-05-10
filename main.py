@@ -8,16 +8,16 @@ from endpoints.vendor import vendor
 from endpoints.profile import profile
 from endpoints.register import register
 from endpoints.login import login
+from endpoints.grab_item import grab_item
 
 app = Flask(__name__)
 
-app.register_blueprint(tags)
-app.register_blueprint(categories)
-app.register_blueprint(item)
-app.register_blueprint(vendor)
-app.register_blueprint(profile)
-app.register_blueprint(register)
-app.register_blueprint(login)
+
+modules = {tags, categories, item, vendor, profile, register, login,
+           grab_item}
+
+for m in modules:
+    app.register_blueprint(m)
 
 
 @app.route("/")
