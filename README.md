@@ -58,23 +58,6 @@ Note this is the only alphanumeric ID at 16 characters length
 - `200 OK` on success
 - `401 Unauthorized` if the session id is invalid
 
-## Purchasing the contents of your current cart
-
-**Definition**
-
-`POST /purchase/<session_id>`
-
-
-**Response**
-
-- `200 OK` on success
-- `401 Unauthorized` if the session_id is invalid
-
-```json
-{
-  "order_id": 123123123
-}
-```
 
 ## Add a product to your vendor page
 
@@ -190,6 +173,25 @@ Note this is the only alphanumeric ID at 16 characters length
 - `404 Not Found` if the item could not be found
 - `401 Unauthorized` if the session id could not be found
 - `400 Bad Request` if the session_id is too long
+
+## Purchasing the contents of your current cart
+
+**Definition**
+
+`POST /purchase/<session_id>`
+
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the cart was empty
+- `401 Unauthorized` if the session_id is invalid
+
+```json
+{
+  "order_id": 123123123
+}
+```
 
 
 ## Get item details

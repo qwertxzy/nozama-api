@@ -9,12 +9,13 @@ from endpoints.profile import profile
 from endpoints.register import register
 from endpoints.login import login
 from endpoints.grab_item import grab_item
+from endpoints.purchase import purchase
 
 app = Flask(__name__)
 
 
 modules = {tags, categories, item, vendor, profile, register, login,
-           grab_item}
+           grab_item, purchase}
 
 for m in modules:
     app.register_blueprint(m)
