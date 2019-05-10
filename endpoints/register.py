@@ -25,15 +25,17 @@ def handle():
     # call a stored procedure to add a user to the db
     result = cursor.callproc('add_user', args=[username, password, email, 255])
 
-    connector.close()
 
     # the 4th entry of result is the 4th parameter, containing the out status
     if (result[3] == 0):
         # we have a 0 -> success!
+        connector.close()
         return '', status.HTTP_200_OK
     elif (result[3] == 1):
         # we have a 1 -> email was not unique
+        connector.close()
         return '', status.HTTP_409_CONFLICT
     else:
         # whatever happened here, it was not anticipated
+        connector.close()
         return '', status.HTTP_500_INTERNAL_SERVER_ERROR

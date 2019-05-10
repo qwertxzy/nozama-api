@@ -23,14 +23,16 @@ def handle(item_id):
     # call a stored procedure to get information for an item
     cursor.callproc('get_item', args=[item_id])
 
-    # if there are no returned rows, return a 404
-    if cursor.rowcount == 0:
-        return '{}', status.HTTP_404_NOT_FOUND
 
     # TODO: find a nicer way to do this here and the other two times down
     # Basically stored results is an iterator over something(?) and we're only interested
     # in the first item, so calling next() once gives the first element of the iterable
     result = next(cursor.stored_results())
+
+    # if there are no returned rows, return a 404
+    if result.rowcount == 0:
+        cursor.close()
+        return '{}', status.HTTP_404_NOT_FOUND
 
     for line in result.fetchall():
         answer['name'] = line[0]

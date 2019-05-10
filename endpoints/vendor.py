@@ -23,13 +23,14 @@ def handle(vendor_id):
     # call a stored procedure to get information about a vendor
     cursor.callproc('get_vendor', args=[vendor_id])
 
-    # if there are no returned rows, return a 404
-    if cursor.rowcount == 0:
-        return '{}', status.HTTP_404_NOT_FOUND
-
     # TODO: see item.py
 
     result = next(cursor.stored_results())
+
+    # if there are no returned rows, return a 404
+    if result.rowcount == 0:
+        connector.close()
+        return '{}', status.HTTP_404_NOT_FOUND
 
     for line in result.fetchall():
         answer['name'] = line[0]

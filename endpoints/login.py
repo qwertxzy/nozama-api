@@ -26,16 +26,17 @@ def handle():
 
     result = cursor.callproc('get_token', args=[email, password, '', 0])
 
-    connector.close()
-
     # the 4th argument of get_token is a return code
     if (result[3] == 0):
         # 0 means successful, so we take the returned session_id/token from the results
         answer['session_id'] = result[2]
+        connector.close()
         return json.dumps(answer), status.HTTP_200_OK
     elif (result[3] == 1):
         # 1 means the user with that email/pass combination could not be found
+        connector.close()
         return '', status.HTTP_400_BAD_REQUEST
     else:
         # unforseen troubles?
+        connector.close()
         return '', status.HTTP_500_INTERNAL_SERVER_ERROR
