@@ -372,6 +372,7 @@ Note this is the only alphanumeric ID at 16 characters length
 - `200 OK` on success
 - `401 Unauthorized` if the session_id is not valid or if the order_id belongs to a different person
 - `404 Not Found` if the order_id could not be found in the database
+- `400 Bad Request` if the session_id was longer than 16 characters
 
 ```json
 {
