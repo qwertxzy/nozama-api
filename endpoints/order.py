@@ -7,7 +7,7 @@ import conf
 order = Blueprint('order', __name__)
 
 
-@order.route('/order/<session_id>/<order_id>')
+@order.route('/order/<session_id>/<order_id>', methods=['POST'])
 def handle(session_id, order_id):
     # session_ids are 16 characters long
     if (len(session_id) > 16):

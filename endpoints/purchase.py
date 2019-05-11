@@ -5,7 +5,7 @@ import conf
 
 purchase = Blueprint('purchase', __name__)
 
-@purchase.route('/purchase/<session_id>')
+@purchase.route('/purchase/<session_id>', methods=['POST'])
 def handle(session_id):
     # session_ids are 16 characters long
     if (len(session_id) > 16):

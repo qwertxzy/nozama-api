@@ -71,7 +71,6 @@ Note this is the only alphanumeric ID at 16 characters length
 {
   "name": "a product name",
   "description": "a product description",
-  "vendor": 2,
   "manufacturer": 1,
   "price": 420,
   "category": 111,
@@ -92,7 +91,8 @@ Note this is the only alphanumeric ID at 16 characters length
 **Response**
 
 - `200 OK` on success
-- `400 Bad Request` if the request was not valid
+- `400 Bad Request` if the request was not valid or if the session_id was too long
+- `401 Unauthorized` if the session_id was invalid or if the user is not part of any vendor
 
 ```json
 {

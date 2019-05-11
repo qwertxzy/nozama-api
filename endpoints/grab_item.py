@@ -6,7 +6,7 @@ import conf
 grab_item = Blueprint('grab_item', __name__)
 
 
-@grab_item.route('/grab_item/<session_id>/<item_id>/<amount>')
+@grab_item.route('/grab_item/<session_id>/<item_id>/<amount>', methods=['POST'])
 def handle(session_id, item_id, amount):
     # no adding negative amounts to your cart
     if (int(amount) < 0):
