@@ -13,12 +13,13 @@ from endpoints.purchase import purchase
 from endpoints.random import random
 from endpoints.order import order
 from endpoints.add_item import add_item
+from endpoints.add_item_image import add_item_image
 
 app = Flask(__name__)
 
 
 modules = {tags, categories, item, vendor, profile, register, login,
-           grab_item, purchase, random, order, add_item}
+           grab_item, purchase, random, order, add_item, add_item_image}
 
 for m in modules:
     app.register_blueprint(m)

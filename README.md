@@ -109,8 +109,8 @@ Note this is the only alphanumeric ID at 16 characters length
 **Response**
 
 - `200 OK` on success
-- `401 Unauthorized` if the session_id is invalid or if the item does not belong to the vendor
-- `404 Not Found` if the item_id could not be found
+- `401 Unauthorized` if the session_id is invalid
+- `404 Not Found` if the item_id could not be found or if the item does not belong to the vendor
 
 ## Adding an image to an item
 
@@ -128,6 +128,7 @@ Note this is the only alphanumeric ID at 16 characters length
 
 - `200 OK` on success
 - `400 Bad Request` if the file was invalid
+- `401 Unauthorized` if the session id was not valid
 
 ## Adding a tag
 

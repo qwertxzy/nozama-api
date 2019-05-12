@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_api import status
-import json
 import mysql.connector
+from os import mkdir
 import conf
 
 add_item = Blueprint('add_item', __name__)
@@ -38,6 +38,10 @@ def handle(session_id):
 
     if (return_status[7] == 0):
         # 0 means good
+
+        #add a directory for the images of that item
+        mkdir(conf.image_directory + item_id, 755)
+
         for tag in item_tags:
             cursor.callproc('add_item_tag', args=[item_id, tag, 0])
 
