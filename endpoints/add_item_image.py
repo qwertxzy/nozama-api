@@ -34,7 +34,7 @@ def handle(session_id, item_id):
     item_image_name = str(len([name for name in listdir(item_image_directory)])) + item_image_extension
 
     # and the full path for that file
-    item_image_public_path = conf.image_directory + '/' + item_image_name
+    item_image_public_path = conf.image_directory + '/' + item_id + '/' + item_image_name
 
     return_status = cursor.callproc('add_item_image', args=[session_id, item_id, item_image_public_path, 0, 0])
 
