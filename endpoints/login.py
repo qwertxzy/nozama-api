@@ -35,7 +35,7 @@ def handle():
     elif (result[3] == 1):
         # 1 means the user with that email/pass combination could not be found
         connector.close()
-        return '', status.HTTP_400_BAD_REQUEST
+        return '', status.HTTP_401_UNAUTHORIZED
     else:
         # unforseen troubles?
         connector.close()

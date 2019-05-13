@@ -20,7 +20,7 @@ ___
 **Response**
 
 - `200 OK` on success
-- `400 Bad Request` if provided credentials were incorrect
+- `401 Unauthorized` if provided credentials were incorrect
 
 ```json
 {
@@ -60,7 +60,7 @@ Note this is the only alphanumeric ID at 16 characters length
 - `200 OK` on success
 - `401 Unauthorized` if the session id is invalid
 
-### Get User details
+### Get user details
 
 **Definition**
 
@@ -74,8 +74,7 @@ Note this is the only alphanumeric ID at 16 characters length
 
 ```json
 {
-  "name": "username",
-  "display_name": "A fancy display name.",
+  "name": "a fancy name",
   "belongs_to_vendor": 1,
   "wallet": 3.1415,
   "cart": [
@@ -95,6 +94,112 @@ Note this is the only alphanumeric ID at 16 characters length
   ]
 }
 ```
+
+### Change user details
+
+**Definition**
+
+`POST /change_profile/user/<session_id>`
+
+```json
+{
+  "name": "a new name?",
+  "belongs_to_vendor": 0
+}
+```
+
+`belongs_to_vendor` should only be either the current vendor id or 0, if 0, the user leaves the vendor
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the session_id is too long
+- `401 Unauthorized` if the session_id is invalid
+
+### Add funds to your wallet
+
+**Definition**
+
+`POST /add_funds/<session_id>/<amount>`
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the session_id is too long
+- `401 Unauthorized` if the session_id is invalid
+
+### Open up a new vendor page
+
+**Definition**
+
+`POST /add_vendor/<session_id>`
+
+```json
+{
+  "name": "a cool vendor name",
+  "description": "why you're so cool"
+}
+```
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the session_id is too long
+- `401 Unauthorized` if the session_id is invalid
+
+### Adding an image to your vendor page
+
+**Definition**
+
+`POST /add_vendor_image/<session_id>`
+
+`enctype=multipart/form-data`
+
+**Arguments**
+
+- `"image":file` the image to be added
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the file was invalid or if the session_id was too long
+- `401 Unauthorized` if the session id was not valid
+
+If the file was already present it will be overwritten.
+
+### Add a vendor page member
+
+**Definition**
+
+`POST /add_vendor_member/<session_id>/<email>`
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the session_id is too long
+- `401 Unauthorized` if the session_id is invalid
+- `404 Not Found` if the user e-mail could not be found
+
+### Change vendor details
+
+**Definition**
+
+`POST /change_profile/user/<session_id>`
+
+```json
+{
+  "name": "your new name?",
+  "description": "a fresh breeze.."
+}
+```
+
+`belongs_to_vendor` should only be either the current vendor id or 0, if 0, the user leaves the vendor
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the session_id is too long
+- `401 Unauthorized` if the session_id is invalid
 
 ## Item
 
@@ -183,7 +288,7 @@ Note this is the only alphanumeric ID at 16 characters length
 
 **Definition**
 
-`POST /add_item_image/<session_id/<image_id>`
+`POST /add_item_image/<session_id>/<item_id>`
 
 `enctype=multipart/form-data`
 
@@ -194,7 +299,7 @@ Note this is the only alphanumeric ID at 16 characters length
 **Response**
 
 - `200 OK` on success
-- `400 Bad Request` if the file was invalid
+- `400 Bad Request` if the file was invalid or if the session_id was too long
 - `401 Unauthorized` if the session id was not valid
 
 ### Deleting an item from your vendor page
