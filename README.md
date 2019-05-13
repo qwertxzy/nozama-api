@@ -5,7 +5,9 @@ Furthermore requests may include a `<session_id>` field. This implies that it ca
 
 ___
 
-## Login / getting a session id
+## Account
+
+### Login / getting a session id
 
 **Definition**
 
@@ -27,7 +29,7 @@ ___
 ```
 Note this is the only alphanumeric ID at 16 characters length
 
-## Registering a new account
+### Registering a new account
 
 **Definition**
 
@@ -43,7 +45,7 @@ Note this is the only alphanumeric ID at 16 characters length
 - `200 OK` on success
 - `409 Conflict` if the email is already being used
 
-## Changing your password
+### Changing your password
 
 **Definition**
 
@@ -58,8 +60,85 @@ Note this is the only alphanumeric ID at 16 characters length
 - `200 OK` on success
 - `401 Unauthorized` if the session id is invalid
 
+### Get User details
 
-## Add a product to your vendor page
+**Definition**
+
+`GET /profile/<session_id>/`
+
+**Response**
+
+- `200 OK` on success
+- `401 Unauthorized` if the session_id could not be found
+- `400 Bad Request` if the session_id is too long
+
+```json
+{
+  "name": "username",
+  "display_name": "A fancy display name.",
+  "belongs_to_vendor": 1,
+  "wallet": 3.1415,
+  "cart": [
+    {
+      "item_id": 23,
+      "amount": 10
+    },
+    {
+      "item_id": 53,
+      "amount": 69
+    }
+  ],
+  "order_history": [
+    123123,
+    321321,
+    555
+  ]
+}
+```
+
+## Item
+
+### Get item details
+
+**Definition**
+
+`GET /item/<item_id>`
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the item id could not be found
+
+```json
+{
+  "name": "a product name",
+  "description": "a product description",
+  "vendor": 2,
+  "manufacturer": 1,
+  "pictures": [
+    "link/to/pic2",
+    "link/to/pic1",
+    "etc."
+  ],
+  "price": 420,
+  "category": 111,
+  "tags": [
+    1,
+    2,
+    3
+  ],
+  "details": [
+    "whatever",
+    "goes",
+    "into",
+    "here"
+  ]
+}
+```
+
+**Note: another method for batch queries should be created, however I'm still working out the details on that**
+
+### Add a product to your vendor page
 
 **Definition**
 
@@ -100,19 +179,7 @@ Note this is the only alphanumeric ID at 16 characters length
 }
 ```
 
-## Deleting an item from your vendor page
-
-**Definition**
-
-`POST /delete_item/<session_id>/<item_id>`
-
-**Response**
-
-- `200 OK` on success
-- `401 Unauthorized` if the session_id is invalid
-- `404 Not Found` if the item_id could not be found or if the item does not belong to the vendor
-
-## Adding an image to an item
+### Adding an image to an item
 
 **Definition**
 
@@ -130,24 +197,19 @@ Note this is the only alphanumeric ID at 16 characters length
 - `400 Bad Request` if the file was invalid
 - `401 Unauthorized` if the session id was not valid
 
-## Adding a tag
+### Deleting an item from your vendor page
 
 **Definition**
 
-`POST /add_tag/<tag_name>`
+`POST /delete_item/<session_id>/<item_id>`
 
 **Response**
 
 - `200 OK` on success
-- `401 Bad Request` if the tag name is already being used
+- `401 Unauthorized` if the session_id is invalid
+- `404 Not Found` if the item_id could not be found or if the item does not belong to the vendor
 
-```json
-{
-  "tag_id": 9
-}
-```
-
-## Putting an item into your cart
+### Putting an item into your cart
 
 **Definition**
 
@@ -161,8 +223,7 @@ Note this is the only alphanumeric ID at 16 characters length
 - `400 Bad Request` if the session_id is too long
 - `403 Forbidden` if the amount is < 0
 
-
-## Removing an item from your cart
+### Removing an item from your cart
 
 **Definition**
 
@@ -175,88 +236,7 @@ Note this is the only alphanumeric ID at 16 characters length
 - `401 Unauthorized` if the session id could not be found
 - `400 Bad Request` if the session_id is too long
 
-## Purchasing the contents of your current cart
-
-**Definition**
-
-`POST /purchase/<session_id>`
-
-
-**Response**
-
-- `200 OK` on success
-- `400 Bad Request` if the cart was empty
-- `401 Unauthorized` if the session_id is invalid
-
-```json
-{
-  "order_id": 123123123
-}
-```
-
-
-## Get item details
-
-**Definition**
-
-`GET /item/<item_id>`
-
-**Response**
-
-- `200 OK` on success
-- `404 Not Found` if the item id could not be found
-
-```json
-{
-  "name": "a product name",
-  "description": "a product description",
-  "vendor": 2,
-  "manufacturer": 1,
-  "pictures": [
-    "link/to/pic2",
-    "link/to/pic1",
-    "etc."
-  ],
-  "price": 420,
-  "category": 111,
-  "tags": [
-    1,
-    2,
-    3
-  ],
-  "details": [
-    "whatever",
-    "goes",
-    "into",
-    "here"
-  ]
-}
-```
-
-**Note: another method for batch queries should be created, however I'm still working out the details on that**
-
-## Get n  random items
-
-**Definition**
-
-`GET /random/<amount>`
-
-**Response**
-
-- `200 OK` on success
-- `400 Bad Request` if the amount is < 1
-
-```json
-[
-  1,
-  2,
-  3,
-  4,
-  69
-]
-```
-
-## Get tags
+### Get tags
 
 **Definition**
 
@@ -279,7 +259,24 @@ Note this is the only alphanumeric ID at 16 characters length
 ]
 ```
 
-## Get categories
+### Adding a tag
+
+**Definition**
+
+`POST /add_tag/<tag_name>`
+
+**Response**
+
+- `200 OK` on success
+- `401 Bad Request` if the tag name is already being used
+
+```json
+{
+  "tag_id": 9
+}
+```
+
+### Get categories
 
 **Definition**
 
@@ -302,7 +299,7 @@ Note this is the only alphanumeric ID at 16 characters length
 ]
 ```
 
-## Get vendor details
+### Get vendor details
 
 **Definition**
 
@@ -326,43 +323,71 @@ Note this is the only alphanumeric ID at 16 characters length
 }
 ```
 
-## Get User details
+### Searching for items by name/tag
 
-**Definition**
+**Defitinion**
 
-`GET /profile/<session_id>/`
+`GET /search/<search_string>`
+The search string searches in product names for now.
 
 **Response**
 
-- `200 OK` on success
-- `401 Unauthorized` if the session_id could not be found
-- `400 Bad Request` if the session_id is too long
+- `200 OK` in every case
+If no items were found, an empty list is provided
 
 ```json
 {
-  "name": "username",
-  "display_name": "A fancy display name.",
-  "belongs_to_vendor": 1,
-  "wallet": 3.1415,
-  "cart": [
-    {
-      "item_id": 23,
-      "amount": 10
-    },
-    {
-      "item_id": 53,
-      "amount": 69
-    }
-  ],
-  "order_history": [
-    123123,
-    321321,
-    555
+  "items": [
+    1,
+    432,
+    65
   ]
 }
 ```
 
-## See details of a past order
+### Get n  random items
+
+**Definition**
+
+`GET /random/<amount>`
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the amount is < 1
+
+```json
+[
+  1,
+  2,
+  3,
+  4,
+  69
+]
+```
+
+## Order
+
+### Purchasing the contents of your current cart
+
+**Definition**
+
+`POST /purchase/<session_id>`
+
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the cart was empty
+- `401 Unauthorized` if the session_id is invalid
+
+```json
+{
+  "order_id": 123123123
+}
+```
+
+### See details of a past order
 
 **Definition**
 
@@ -389,28 +414,6 @@ Note this is the only alphanumeric ID at 16 characters length
       "item_id": 43,
       "amount": 69
     }
-  ]
-}
-```
-
-## Searching for items by name/tag
-
-**Defitinion**
-
-`GET /search/<search_string>`
-The search string searches in product names for now.
-
-**Response**
-
-- `200 OK` in every case
-If no items were found, an empty list is provided
-
-```json
-{
-  "items": [
-    1,
-    432,
-    65
   ]
 }
 ```
