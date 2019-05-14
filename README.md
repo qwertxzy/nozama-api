@@ -52,12 +52,12 @@ Note this is the only alphanumeric ID at 16 characters length
 `POST /change_password/<session_id>`
 
 **Arguments**
-- `"email":string` the user's email address
 - `"password":string` the new password to be used
 
 **Response**
 
 - `200 OK` on success
+- `400 Bad Request` if the session_id is too long
 - `401 Unauthorized` if the session id is invalid
 
 ### Get user details
@@ -423,7 +423,7 @@ If the file was already present it will be overwritten.
   "items": [
     123123,
     11,
-    231,
+    231
   ]
 }
 ```

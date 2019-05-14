@@ -37,6 +37,6 @@ def handle():
         connector.close()
         return '', status.HTTP_401_UNAUTHORIZED
     else:
-        # unforseen troubles?
+        # unforeseen troubles?
         connector.close()
         return '', status.HTTP_500_INTERNAL_SERVER_ERROR

@@ -3,11 +3,15 @@ from flask_api import status
 import mysql.connector
 import conf
 
-register = Blueprint('register', __name__)
+change_password = Blueprint('change_password', __name__)
 
 
-@register.route('/register', methods=['POST'])
-def handle():
+@change_password.route('/change_password/<session_id>', methods=['POST'])
+def handle(session_id):
+    # session_ids are 16 characters long
+    if (len(session_id) > 16):
+        return '', status.HTTP_400_BAD_REQUEST
+
     connector = mysql.connector.connect(
         user=conf.user,
         database=conf.database,
@@ -17,24 +21,19 @@ def handle():
 
     cursor = connector.cursor()
 
-    # parse the request form data into variables
-    username = request.form['username']
+    #parse the request form data into variables
     password = request.form['password']
-    email = request.form['email']
 
-    # call a stored procedure to add a user to the db
-    return_status = cursor.callproc('add_user', args=[username, password, email, 255])
+    return_status = cursor.callproc('change_password', args=[session_id, password, 0])
 
-
-    # the 4th entry of result is the 4th parameter, containing the out status
-    if (return_status[3] == 0):
-        # we have a 0 -> success!
+    if (return_status[3 == 0]):
+        # all good
         connector.close()
         return '', status.HTTP_200_OK
     elif (return_status[3] == 1):
-        # we have a 1 -> email was not unique
+        # no user found for that token
         connector.close()
-        return '', status.HTTP_409_CONFLICT
+        return '', status.HTTP_401_UNAUTHORIZED
     else:
         # whatever happened here, it was not anticipated
         connector.close()
