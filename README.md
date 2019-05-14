@@ -104,11 +104,9 @@ Note this is the only alphanumeric ID at 16 characters length
 ```json
 {
   "name": "a new name?",
-  "belongs_to_vendor": 0
+  "leave_vendor": true
 }
 ```
-
-`belongs_to_vendor` should only be either the current vendor id or 0, if 0, the user leaves the vendor
 
 **Response**
 
