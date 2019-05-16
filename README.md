@@ -402,6 +402,46 @@ If the file was already present it will be overwritten.
 ]
 ```
 
+### Get manufacturers
+
+**Definition**
+
+`GET /manufacturers`
+
+**Response**
+
+- `200 OK`
+
+```json
+[
+  {
+    "manufacturer_name": "wew",
+    "manufacturer_id": 1
+  },
+  {
+    "manufacturer_name": "lad",
+    "manufacturer_id": 2
+  }
+]
+```
+
+### Adding a manufacturer
+
+**Definition**
+
+`POST /add_manufacturer/<manufacturer_name>`
+
+**Response**
+
+- `200 OK`
+
+```json
+{
+  "manufacturer_name": "lad",
+  "manufacturer_id": 2
+}
+```
+
 ### Get vendor details
 
 **Definition**
