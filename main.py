@@ -7,6 +7,7 @@ from endpoints.item import item
 from endpoints.vendor import vendor
 from endpoints.profile import profile
 from endpoints.change_profile import change_profile
+from endpoints.add_funds import add_funds
 from endpoints.register import register
 from endpoints.login import login
 from endpoints.change_password import change_password
@@ -21,7 +22,7 @@ from endpoints.search import search
 app = Flask(__name__)
 
 
-modules = {tags, categories, item, vendor, profile, change_profile, register, login, change_password,
+modules = {tags, categories, item, vendor, profile, change_profile, add_funds, register, login, change_password,
            grab_item, purchase, random, order, add_item, add_item_image, search}
 
 for m in modules:

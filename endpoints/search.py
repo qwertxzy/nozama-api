@@ -26,4 +26,5 @@ def handle(search_string):
     for line in result.fetchall():
         answer.append(line[0])
 
+    connector.close()
     return json.dumps(answer), status.HTTP_200_OK
