@@ -479,13 +479,12 @@ The search string searches in product names for now.
 If no items were found, an empty list is provided
 
 ```json
-{
-  "items": [
-    1,
-    432,
-    65
-  ]
-}
+[
+  1,
+  432,
+  65
+]
+
 ```
 
 ### Get n  random items
