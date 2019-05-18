@@ -25,7 +25,6 @@ def handle():
     # call a stored procedure to add a user to the db
     return_status = cursor.callproc('add_user', args=[username, password, email, 255])
 
-
     # the 4th entry of result is the 4th parameter, containing the out status
     if (return_status[3] == 0):
         # we have a 0 -> success!
