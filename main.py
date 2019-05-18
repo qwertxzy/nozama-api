@@ -8,6 +8,7 @@ from endpoints.vendor import vendor
 from endpoints.profile import profile
 from endpoints.change_profile import change_profile
 from endpoints.add_funds import add_funds
+from endpoints.add_vendor import add_vendor
 from endpoints.register import register
 from endpoints.login import login
 from endpoints.change_password import change_password
@@ -23,7 +24,7 @@ app = Flask(__name__)
 
 
 modules = {tags, categories, item, vendor, profile, change_profile, add_funds, register, login, change_password,
-           grab_item, purchase, random, order, add_item, add_item_image, search}
+           add_vendor, grab_item, purchase, random, order, add_item, add_item_image, search}
 
 for m in modules:
     app.register_blueprint(m)
@@ -31,4 +32,4 @@ for m in modules:
 
 @app.route("/")
 def get_index():
-    return "Hello, this is the default route"
+    return '<img src="http://progex.qwertxzy.me/images/jeff.jpg">geoff</img>'
