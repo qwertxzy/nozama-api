@@ -3,6 +3,7 @@ from flask import Flask
 # import endpoints for request handling
 from endpoints.tags import tags
 from endpoints.categories import categories
+from endpoints.manufacturers import manufacturers
 from endpoints.item import item
 from endpoints.vendor import vendor
 from endpoints.profile import profile
@@ -25,8 +26,10 @@ from endpoints.search import search
 app = Flask(__name__)
 
 
-modules = {tags, categories, item, vendor, profile, change_profile, add_funds, register, login, change_password,
-           add_vendor, add_vendor_member, grab_item, purchase, random, order, add_item, add_item_image, delete_item, search}
+modules = {tags, categories, manufacturers, item, vendor, profile, change_profile,
+           add_funds, register, login, change_password, add_vendor, add_vendor_member,
+           grab_item, purchase, random, order, add_item, add_item_image, delete_item,
+           search}
 
 for m in modules:
     app.register_blueprint(m)

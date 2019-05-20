@@ -416,10 +416,12 @@ If the file was already present it will be overwritten.
 [
   {
     "manufacturer_name": "wew",
+    "manufacturer_description": "wow",
     "manufacturer_id": 1
   },
   {
     "manufacturer_name": "lad",
+    "manufacturer_description": "i don't even know anymore",
     "manufacturer_id": 2
   }
 ]
