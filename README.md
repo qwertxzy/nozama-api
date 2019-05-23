@@ -59,6 +59,7 @@ Note this is the only alphanumeric ID at 16 characters length
 - `200 OK` on success
 - `400 Bad Request` if the session_id is too long
 - `401 Unauthorized` if the session id is invalid
+- `409 Conflict` if the password is identical to the existing one
 
 ### Get user details
 
@@ -182,7 +183,7 @@ If the file was already present it will be overwritten.
 
 **Definition**
 
-`POST /change_profile/user/<session_id>`
+`POST /change_profile/vendor/<session_id>`
 
 ```json
 {

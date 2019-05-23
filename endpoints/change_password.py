@@ -34,6 +34,10 @@ def handle(session_id):
         # no user found for that token
         connector.close()
         return '', status.HTTP_401_UNAUTHORIZED
+    elif (return_status[3] == 2):
+        # same password as the old one
+        connector.close()
+        return '', status.HTTP_409_CONFLICT
     else:
         # whatever happened here, it was not anticipated
         connector.close()
