@@ -192,8 +192,6 @@ If the file was already present it will be overwritten.
 }
 ```
 
-`belongs_to_vendor` should only be either the current vendor id or 0, if 0, the user leaves the vendor
-
 **Response**
 
 - `200 OK` on success
