@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_api import status
 import mysql.connector
+import json
 from os import mkdir
 import conf
 
@@ -45,7 +46,11 @@ def handle(session_id):
         for tag in item_tags:
             cursor.callproc('add_item_tag', args=[item_id, tag, 0])
 
-        return '{{{}}}'.format(item_id), status.HTTP_200_OK
+
+        answer = {}
+        answer['item_id'] = item_id
+
+        return json.dumps(answer), status.HTTP_200_OK
     elif (return_status[7] == 1 or return_status[7] == 2):
         # 1 means the token couldnt be resolved to a user id
         # 2 means the user isn't part of any vendor
