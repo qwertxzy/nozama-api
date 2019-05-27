@@ -40,7 +40,7 @@ def handle(session_id):
         # 0 means good
 
         #add a directory for the images of that item
-        mkdir(conf.image_directory + item_id, 755)
+        mkdir(conf.image_directory + '/' + str(item_id), 755)
 
         for tag in item_tags:
             cursor.callproc('add_item_tag', args=[item_id, tag, 0])
