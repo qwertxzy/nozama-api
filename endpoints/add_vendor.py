@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from flask_api import status
+from os import mkdir
 import mysql.connector
 import conf
 
@@ -25,13 +26,19 @@ def handle(session_id):
     name = data['name']
     description = data['description']
 
-    return_status = cursor.callproc('add_vendor', args=[session_id, name, description, 0])
+    return_status = cursor.callproc('add_vendor', args=[session_id, name, description, 0, 0])
 
-    if(return_status[3] == 0):
+    if(return_status[4] == 0):
         # succ ess
+
+        vendor_id = return_status[3]
+
+        # add a directory for the images of that vendor
+        mkdir(conf.web_root + '/' + conf.image_directory + '/vendor/' + str(vendor_id), 0o755)
+
         connector.close()
         return '', status.HTTP_200_OK
-    elif(return_status[3] == 1):
+    elif(return_status[4] == 1):
         # user not found
         connector.close()
         return '', status.HTTP_401_UNAUTHORIZED

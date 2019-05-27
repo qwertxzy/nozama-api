@@ -163,8 +163,8 @@ Note: even if a vendor ends up with 0 members this way, it will still continue t
 **Response**
 
 - `200 OK` on success
-- `400 Bad Request` if the file was invalid or if the session_id was too long
-- `401 Unauthorized` if the session id was not valid
+- `400 Bad Request` if the session_id was too long
+- `401 Unauthorized` if the session id was not valid or if the user does not belong to any vendor
 
 If the file was already present it will be overwritten.
 
