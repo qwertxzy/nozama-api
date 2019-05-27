@@ -109,6 +109,8 @@ Note this is the only alphanumeric ID at 16 characters length
 }
 ```
 
+Note: even if a vendor ends up with 0 members this way, it will still continue to exist, but all of this vendor's items will be hidden for future purchases.
+
 **Response**
 
 - `200 OK` on success
@@ -310,6 +312,19 @@ If the file was already present it will be overwritten.
 - `200 OK` on success
 - `401 Unauthorized` if the session_id is invalid
 - `404 Not Found` if the item_id could not be found or if the item does not belong to the vendor
+
+Note that this does not actually delete the item from the database, but just hide it from being selected for new purchases.
+
+### Adding a tag to an item
+
+**Definition**
+
+`POST /add_item_tag/<item_id>/<tag_id>`
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the Item or Tag ID was not found
 
 ### Putting an item into your cart
 
