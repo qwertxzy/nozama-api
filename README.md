@@ -262,12 +262,10 @@ If the file was already present it will be overwritten.
     2,
     3
   ],
-  "details": [
-    "whatever",
-    "goes",
-    "into",
-    "here"
-  ]
+  "details": {
+    "property 1": "value1",
+    "property 2": "value2"
+  }
 }
 ```
 

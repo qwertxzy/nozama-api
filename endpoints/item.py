@@ -62,7 +62,16 @@ def handle(item_id):
     for line in result.fetchall():
         answer['tags'].append(line[0])
 
-    # TODO: add details(?) to the response
+    # call another stored procedure to get the item's details
+    cursor.callproc('get_item_details', args=[item_id])
+
+    answer['details'] = {}
+
+    result = next(cursor.stored_results())
+
+    for line in result.fetchall():
+        answer['details'][line[0]] = line[1]
+
     connector.close()
 
     return json.dumps(answer), status.HTTP_200_OK

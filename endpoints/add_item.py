@@ -31,6 +31,7 @@ def handle(session_id):
     item_price = data['price']
     item_category = data['category']
     item_tags = data['tags']
+    item_details = data['details']
 
     return_status = cursor.callproc('add_item', args=[session_id, item_name, item_description, item_manufacturer,
                                                       item_price, item_category, 0, 0])
@@ -40,12 +41,16 @@ def handle(session_id):
     if (return_status[7] == 0):
         # 0 means good
 
-        #add a directory for the images of that item
+        # add a directory for the images of that item
         mkdir(conf.web_root + '/' + conf.image_directory + '/' + str(item_id), 0o755)
 
+        # add all the tags
         for tag in item_tags:
             cursor.callproc('add_item_tag', args=[item_id, tag, 0])
 
+        # add all the details
+        for detail_key, detail_value in item_details.items():
+            cursor.callproc('add_item_detail', args=[item_id, detail_key, detail_value, 0])
 
         answer = {}
         answer['item_id'] = item_id
