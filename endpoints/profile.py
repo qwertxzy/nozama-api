@@ -39,6 +39,9 @@ def handle(session_id):
             answer['name'] = line[1]
             answer['belongs_to_vendor'] = line[2]
             answer['wallet'] = line[3]
+            answer['city'] = line[4]
+            answer['zip'] = line[5]
+            answer['street'] = line[6]
 
         # initialize the cart list
         answer['cart'] = []

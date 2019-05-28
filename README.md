@@ -77,6 +77,9 @@ Note this is the only alphanumeric ID at 16 characters length
 {
   "name": "a fancy name",
   "belongs_to_vendor": 1,
+  "city": "wewlad",
+  "zip": "123456",
+  "street": "yeet yoot",
   "wallet": 3.1415,
   "cart": [
     {
@@ -110,6 +113,26 @@ Note this is the only alphanumeric ID at 16 characters length
 ```
 
 Note: even if a vendor ends up with 0 members this way, it will still continue to exist, but all of this vendor's items will be hidden for future purchases.
+
+**Response**
+
+- `200 OK` on success
+- `400 Bad Request` if the session_id is too long
+- `401 Unauthorized` if the session_id is invalid
+
+## Change your delivery address
+
+**Definition** 
+
+`POST /change_address/<session_id>`
+
+```json
+{
+  "city": "Ye olde town",
+  "zip": "666666",
+  "street": "You know where"
+}
+```
 
 **Response**
 
