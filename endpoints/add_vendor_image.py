@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_api import status
-from os import listdir, path
+from os import path
 import mysql.connector
 import conf
 
