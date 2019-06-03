@@ -268,8 +268,6 @@ If the file was already present it will be overwritten.
 
 `POST /add_item/<session_id>`
 
-
-**Request Body**
 ```json
 {
   "name": "a product name",
@@ -337,7 +335,7 @@ Note that this does not actually delete the item from the database, but just hid
 
 **Definition**
 
-`POST /add_item_tag/<item_id>/<tag_id>`
+`POST /add_item_tag/<item_id>/<tag_name>`
 
 **Response**
 

@@ -40,20 +40,23 @@ def handle(session_id):
 
     if (return_status[7] == 0):
         # 0 means good
+        try:
+            # add a directory for the images of that item
+            mkdir(conf.web_root + '/' + conf.image_directory + '/' + str(item_id), 0o755)
 
-        # add a directory for the images of that item
-        mkdir(conf.web_root + '/' + conf.image_directory + '/' + str(item_id), 0o755)
+            # add all the tags
+            for tag in item_tags:
+                cursor.callproc('add_item_tag', args=[item_id, tag, 0])
 
-        # add all the tags
-        for tag in item_tags:
-            cursor.callproc('add_item_tag', args=[item_id, tag, 0])
+            # add all the details
+            for detail_key, detail_value in item_details.items():
+                cursor.callproc('add_item_detail', args=[item_id, detail_key, detail_value, 0])
 
-        # add all the details
-        for detail_key, detail_value in item_details.items():
-            cursor.callproc('add_item_detail', args=[item_id, detail_key, detail_value, 0])
+            answer = {}
+            answer['item_id'] = item_id
+        except:
+            cursor.callproc('delete_item', args=[session_id, item_id, 0])
 
-        answer = {}
-        answer['item_id'] = item_id
 
         return json.dumps(answer), status.HTTP_200_OK
     elif (return_status[7] == 1 or return_status[7] == 2):
