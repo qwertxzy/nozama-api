@@ -16,7 +16,7 @@ def handle():
         host=conf.host,
         port=conf.port)
 
-    answer = {}
+    answer = []
 
     cursor = connector.cursor()
 
@@ -25,7 +25,7 @@ def handle():
 
     result = next(cursor.stored_results())
     for (tag_id, tag_name) in result:
-        answer[tag_id] = tag_name
+        answer.append(tag_name)
 
     connector.close()
 

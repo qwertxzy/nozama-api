@@ -122,7 +122,7 @@ Note: even if a vendor ends up with 0 members this way, it will still continue t
 
 ## Change your delivery address
 
-**Definition** 
+**Definition**
 
 `POST /change_address/<session_id>`
 
@@ -250,9 +250,8 @@ If the file was already present it will be overwritten.
   "price": 420,
   "category": 111,
   "tags": [
-    1,
-    2,
-    3
+    "beautiful",
+    "another tag"
   ],
   "details": {
    "property 1": "value1",
@@ -279,9 +278,9 @@ If the file was already present it will be overwritten.
   "price": 420,
   "category": 111,
   "tags": [
-    1,
-    2,
-    3
+    "one",
+    "two",
+    "three"
   ],
   "details": {
     "property 1": "value1",
@@ -384,32 +383,10 @@ Note that this does not actually delete the item from the database, but just hid
 
 ```json
 [
-  {
-    "tag_name": "abc",
-    "tag_id": 1
-  },
-  {
-    "tag_name": "def",
-    "tag_id": 2
-  }
+  "Tag one",
+  "Tag two",
+  "Tag three"
 ]
-```
-
-### Adding a tag
-
-**Definition**
-
-`POST /add_tag/<tag_name>`
-
-**Response**
-
-- `200 OK` on success
-- `401 Bad Request` if the tag name is already being used
-
-```json
-{
-  "tag_id": 9
-}
 ```
 
 ### Get categories
