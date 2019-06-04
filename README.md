@@ -305,8 +305,6 @@ If the file was already present it will be overwritten.
 
 `POST /add_item_image/<session_id>/<item_id>`
 
-`enctype=multipart/form-data`
-
 **Arguments**
 
 - `"image":file` the image to be added
@@ -316,6 +314,78 @@ If the file was already present it will be overwritten.
 - `200 OK` on success
 - `400 Bad Request` if the file was invalid or if the session_id was too long
 - `401 Unauthorized` if the session id was not valid
+
+### Adding a tag to an item
+
+**Definition**
+
+`POST /add_item_tag/<item_id>/<tag_name>`
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the Item or Tag ID was not found
+
+### Editing existing item information
+
+**Definition**
+
+`POST /change_item/info/<session_id>/<item_id>`
+
+```json
+{
+  "name": "a new product name",
+  "description": "a new product description",
+  "manufacturer": 2,
+  "price": 1000,
+  "category": 4,
+  "tags": [
+    "four",
+    "five",
+    "six"
+  ]
+}
+```
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the item_id could not be found
+- `401 Unauthorized` if the session_id was invalid or if the user does not belong to that item's vendor
+- `400 Bad Request` if the session_id provided was too long
+
+### Editing existing item details
+
+**Definition**
+
+`POST /change_item/details/<sesison_id>/<item_id>`
+
+```json
+{
+  "property 1": "new value1",
+  "property 2": "new value2"
+}
+```
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the item_id could not be found
+- `401 Unauthorized` if the session_id was invalid or if the user does not belong to that item's vendor
+- `400 Bad Request` if the session_id provided was too long
+
+### Delete an item's image
+
+**Definition**
+
+`POST /remove_item_image/<session_id>/<item_id>/<image_file_name>`
+
+**Response**
+
+- `200 OK` on success
+- `404 Not Found` if the item_id or image file could not be found
+- `401 Unauthorized` if the session_id was invalid or if the user does not belong to that item's vendor
+- `400 Bad Request` if the session_id provided was too long
 
 ### Deleting an item from your vendor page
 
@@ -330,17 +400,6 @@ If the file was already present it will be overwritten.
 - `404 Not Found` if the item_id could not be found or if the item does not belong to the vendor
 
 Note that this does not actually delete the item from the database, but just hide it from being selected for new purchases.
-
-### Adding a tag to an item
-
-**Definition**
-
-`POST /add_item_tag/<item_id>/<tag_name>`
-
-**Response**
-
-- `200 OK` on success
-- `404 Not Found` if the Item or Tag ID was not found
 
 ### Putting an item into your cart
 
