@@ -33,8 +33,8 @@ def handle(session_id, order_id):
         line = next(result)
 
         answer['ordered_on'] = line[0]
-        answer['order_status'] = line[1]
-        answer['order_total'] = line[2]
+        answer['order_total'] = line[1]
+        answer['order_status'] = line[2]
         answer['items'] = []
 
         cursor.callproc('get_order_items', args=[order_id])
