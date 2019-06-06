@@ -33,6 +33,7 @@ def handle(session_id):
 
     # if the vendor id is null we're no good
     if return_status[1] == None:
+        connector.close()
         return '', status.HTTP_401_UNAUTHORIZED
 
 
@@ -46,4 +47,5 @@ def handle(session_id):
     vendor_image.save(conf.web_root + '/' + vendor_image_directory)
     vendor_image.close()
 
+    connector.close()
     return '', status.HTTP_200_OK

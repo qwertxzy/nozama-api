@@ -30,8 +30,11 @@ def handle(session_id):
     return_status = cursor.callproc('change_address', args=[session_id, city, zip, street, 0])
 
     if(return_status[4] == 0):
+        connector.close()
         return '', status.HTTP_200_OK
     elif(return_status[4] == 1):
+        connector.close()
         return '', status.HTTP_401_UNAUTHORIZED
     else:
+        connector.close()
         return '', status.HTTP_500_INTERNAL_SERVER_ERROR
