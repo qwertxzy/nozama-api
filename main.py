@@ -17,6 +17,7 @@ from endpoints.register import register
 from endpoints.login import login
 from endpoints.change_password import change_password
 from endpoints.grab_item import grab_item
+from endpoints.remove_item import remove_item
 from endpoints.purchase import purchase
 from endpoints.random import random
 from endpoints.order import order
@@ -31,8 +32,8 @@ app = Flask(__name__)
 
 
 modules = {tags, categories, manufacturers, item, vendor, profile, change_profile, change_address,
-           add_funds, register, login, change_password, add_vendor, add_vendor_image,
-           add_vendor_member, grab_item, purchase, random, order, add_item,
+           add_funds, register, login, change_password, add_vendor, add_vendor_image, add_item_tag,
+           add_vendor_member, grab_item, remove_item, purchase, random, order, add_item,
            add_item_image, change_item, delete_item, search}
 
 for m in modules:

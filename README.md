@@ -424,7 +424,6 @@ Note that this does not actually delete the item from the database, but just hid
 **Response**
 
 - `200 OK` on success
-- `404 Not Found` if the item could not be found
 - `401 Unauthorized` if the session id could not be found
 - `400 Bad Request` if the session_id is too long
 
