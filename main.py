@@ -22,6 +22,7 @@ from endpoints.random import random
 from endpoints.order import order
 from endpoints.add_item import add_item
 from endpoints.add_item_image import add_item_image
+from endpoints.add_item_tag import add_item_tag
 from endpoints.change_item import change_item
 from endpoints.delete_item import delete_item
 from endpoints.search import search

@@ -324,7 +324,7 @@ If the file was already present it will be overwritten.
 **Response**
 
 - `200 OK` on success
-- `404 Not Found` if the Item or Tag ID was not found
+- `404 Not Found` if the Item ID was not found
 
 ### Editing existing item information
 
