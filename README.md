@@ -383,8 +383,7 @@ If the file was already present it will be overwritten.
 **Response**
 
 - `200 OK` on success
-- `404 Not Found` if the item_id or image file could not be found
-- `401 Unauthorized` if the session_id was invalid or if the user does not belong to that item's vendor
+- `404 Not Found` if the item_id or image file could not be found in this user's vendor
 - `400 Bad Request` if the session_id provided was too long
 
 ### Deleting an item from your vendor page
