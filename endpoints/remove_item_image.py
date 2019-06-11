@@ -31,6 +31,9 @@ def handle(session_id, item_id, file_name):
         # so we can delete the file with a good conscience
         remove(conf.web_root + '/' + conf.image_directory + '/' + item_id + '/' + file_name)
 
+        connector.close()
+        return status.HTTP_200_OK
+
     elif(return_status[3] == 1):
         # no image for that item for that vendor for that user found
         connector.close()
