@@ -37,4 +37,4 @@ def handle(session_id, item_id, file_name):
     elif(return_status[3] == 1):
         # no image for that item for that vendor for that user found
         connector.close()
-        return status.HTTP_404_NOT_FOUND
+        return '', status.HTTP_404_NOT_FOUND
