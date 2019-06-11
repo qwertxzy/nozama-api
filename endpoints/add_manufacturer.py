@@ -27,4 +27,5 @@ def handle():
     answer = {}
     answer['manufacturer_id'] = return_status[2]
 
+    connector.close()
     return json.dumps(answer), status.HTTP_200_OK
