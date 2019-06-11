@@ -16,7 +16,7 @@ def handle():
         host=conf.host,
         port=conf.port)
 
-    answer = {}
+    answer = []
 
     cursor = connector.cursor()
 
@@ -25,7 +25,12 @@ def handle():
 
     result = next(cursor.stored_results())
     for (category_id, category_name) in result:
-        answer[category_id] = category_name
+        entry = {}
+
+        entry['category_name'] = category_name
+        entry['category_id'] = category_id
+
+        answer.append(entry)
 
     connector.close()
 
