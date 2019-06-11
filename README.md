@@ -497,7 +497,14 @@ Note that this does not actually delete the item from the database, but just hid
 
 **Definition**
 
-`POST /add_manufacturer/<manufacturer_name>`
+`POST /add_manufacturer`
+
+```json
+{
+  "manufacturer_name": "lad",
+  "manufacturer_description": "totally descriptive piece of text"
+}
+```
 
 **Response**
 
@@ -505,11 +512,10 @@ Note that this does not actually delete the item from the database, but just hid
 
 ```json
 {
-  "manufacturer_name": "lad",
-  "manufacturer_description": "totally descriptive piece of text",
   "manufacturer_id": 2
 }
 ```
+
 
 ### Get vendor details
 
