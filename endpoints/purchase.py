@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask_api import status
+import json
 import mysql.connector
 import conf
 
@@ -25,7 +26,11 @@ def handle(session_id):
     if(result[2] == 0):
         # 0 means success!
         connector.close()
-        return '{{{}}}'.format(result[1]), status.HTTP_200_OK
+
+        answer = {}
+        answer['order_id'] = result[1]
+
+        return json.dumps(answer), status.HTTP_200_OK
     elif(result[2] == 1):
         # 1 means the user's id could not be found
         connector.close()
