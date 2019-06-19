@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+import hashlib
 from flask_api import status
 import mysql.connector
 import conf
@@ -22,8 +23,11 @@ def handle():
     password = request.form['password']
     email = request.form['email']
 
+    # hash the password more or less
+    hashed_password = hashlib.sha3_512((email + password).encode('utf-8')).hexdigest()
+
     # call a stored procedure to add a user to the db
-    return_status = cursor.callproc('add_user', args=[username, password, email, 255])
+    return_status = cursor.callproc('add_user', args=[username, hashed_password, email, 255])
 
     # the 4th entry of result is the 4th parameter, containing the out status
     if (return_status[3] == 0):

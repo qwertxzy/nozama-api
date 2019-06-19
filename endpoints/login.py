@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+import hashlib
 from flask_api import status
 import json
 import mysql.connector
@@ -24,7 +25,10 @@ def handle():
     email = request.form['email']
     password = request.form['password']
 
-    result = cursor.callproc('get_token', args=[email, password, '', 0])
+    # hash the password more or less
+    hashed_password = hashlib.sha3_512((email + password).encode('utf-8')).hexdigest()
+
+    result = cursor.callproc('get_token', args=[email, hashed_password, '', 0])
 
     # the 4th argument of get_token is a return code
     if (result[3] == 0):
