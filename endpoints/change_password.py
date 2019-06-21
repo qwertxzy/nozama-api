@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from flask_api import status
+import hashlib
 import mysql.connector
 import conf
 
@@ -24,7 +25,17 @@ def handle(session_id):
     #parse the request form data into variables
     password = request.form['password']
 
-    return_status = cursor.callproc('change_password', args=[session_id, password, 0])
+    #get the user's email for salting the hash
+    email = cursor.callproc('get_email', args=[session_id, ''])[1]
+
+    if email is None:
+        connector.close()
+        return '', status.HTTP_401_UNAUTHORIZED
+
+    # hash the new password more or less
+    hashed_password = hashlib.sha3_512((email + password).encode('utf-8')).hexdigest()
+
+    return_status = cursor.callproc('change_password', args=[session_id, hashed_password, 0])
 
     if (return_status[3 == 0]):
         # all good
