@@ -81,6 +81,7 @@ Note this is the only alphanumeric ID at 16 characters length
   "zip": "123456",
   "street": "yeet yoot",
   "wallet": 3.1415,
+  "email": "bill@example.com",
   "cart": [
     {
       "item_id": 23,
