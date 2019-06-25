@@ -33,9 +33,6 @@ def handle(session_id):
 
         vendor_id = return_status[3]
 
-        # add a directory for the images of that vendor
-        mkdir(conf.web_root + '/' + conf.image_directory + '/vendor/' + str(vendor_id), 0o755)
-
         connector.close()
         return '', status.HTTP_200_OK
     elif(return_status[4] == 1):
